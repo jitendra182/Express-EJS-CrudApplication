@@ -9,7 +9,6 @@ const mongoose=require('mongoose');
  console.log(`DB Connection Error: ${err.message}`);
 });
 
-//mongodb+srv://jitendra:<password>@cluster0.4cvuo.mongodb.net/<dbname>?retryWrites=true&w=majority
 
 
 // mongoose.connect('mongodb://localhost:27017/employee', {
