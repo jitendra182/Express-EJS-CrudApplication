@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/stylesheets/style.css" />
+  <!-- CSS only -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+  <!-- JS, Popper.js, and jQuery -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
+</head>
+
+<body>
+  
+  <!-- This section is for Search a record START -->
+  <div class="container">
+
+    <% if(message !=''){ %>
+      <div class="alert alert-success" role="alert">
+        Success! <%=message %>
+      </div>
+    <% } %>
+    <h1> Filter Employee Records</h1>
+    <form action="/search" method="post">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="exampleInputEmail1">By Name</label>
+            <input type="text" class="form-control" id="nameFilter" name="filterName" aria-describedby="emailHelp"
+              placeholder="Enter Name">
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="exampleInputEmail1">By Email</label>
+            <input type="email" class="form-control" id="emailFilter" name="filerEmail" aria-describedby="emailHelp"
+              placeholder="Enter Email">
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="empTypeFilter">By Employee Type</label>
+            <select class="form-control" id="empTypeFilter" name="filterEmpType">
+              <option value="Hourly">Hourly</option>
+              <option value="Fixed">Fixed</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <button class="btn btn-primary" type="submit">Search</button>
+        </div>
+    </form>
+  </div>
+
+  <!-- Search option section ENDs Here -->
+
+  <!-- Table for listing all the recordes START here -->
+  <div class="container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Emp Type</th>
+          <th>Hourly Rate</th>
+          <th>Total Hours</th>
+          <th>Total Amount</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%if (records.length>0){ %>
+        <% records.forEach((employee)=>{ %>
+        <tr>
+          <td><%=employee.name %></td>
+          <td><%=employee.email %></td>
+          <td><%=employee.etype %></td>
+          <td><%=employee.hourlyRate %></td>
+          <td><%=employee.totalHour %></td>
+          <td><%=employee.total %></td>
+          <td><a class="btn btn-success btn-sm" href="/edit/<%=employee._id %>" ><i class="fa fa-edit"></i></a>
+            <a class="btn btn-danger btn-sm" href="/delete/<%=employee._id %>" ><i class="fa fa-trash"></i></a></td>
+        </tr>
+        <%})}else{ %>
+          <td colspan="6"> No Record Found</td>
+          <%} %>
+      </tbody>
+    </table>
+
+  </div>
+  <!-- List of data table ENDs here -->
+
+
+  <!-- Employee details Entry Form STARTs Here -->
+  <div class="row mt-0">
+    <div class="col-md-6 mx-auto border">
+      <h5 class="alert alert-primary">Employee Details</h5>
+      <form action="/" method="post">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="form-group">Name</div>
+          </div>
+          <div class="col-md-9">
+            <div class="form-group">
+              <input type="text" class="form-control" id="name" name="name" placeholder="Enter Your Name" />
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">Email</div>
+          </div>
+          <div class="col-md-9">
+            <div class="form-group">
+              <input type="text" class="form-control" id="name" name="email" placeholder="Enter Your Email" />
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">Employee Type</div>
+          </div>
+          <div class="col-md-9">
+            <div class="form-group">
+              <select class="form-control" id="empType" name="etype">
+                <option value="Hourly">Hourly</option>
+                <option value="Fixed">Fixed</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">Hourly Rate</div>
+          </div>
+          <div class="col-md-9">
+            <div class="form-group">
+              <input type="text" class="form-control" id="name" name="hourlyRate" placeholder="Enter Hourly Rate" />
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">Total Hour</div>
+          </div>
+          <div class="col-md-9">
+            <div class="form-group">
+              <input type="text" class="form-control" id="name" name="totalHour" placeholder="Enter Total Hour" />
+            </div>
+            <div class="form-group">
+              <button class="btn btn-outline-primary" type="submit">Submit </button>
+            </div>
+          </div class="">
+      </form>
+    </div>
+  </div>
+
+  <!-- Employee details entry form ENDs here -->
+  
+</body>
+
+</html>
